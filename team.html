@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | Freedom And Security</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. VARIABLES & RESET --- */
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004080;
+            --accent: #111111;
+            --light: #ffffff;
+            --gray-bg: #f4f7f6;
+            --whatsapp: #25D366;
+            --shadow-soft: 0 15px 40px rgba(0,0,0,0.1);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--accent);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--gray-bg);
+            /* Base font size scaling */
+            font-size: 16px;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { width: 100%; display: block; }
+
+        /* --- 2. HEADER (FIXED ALIGNMENT) --- */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            /* Use a container logic for the header so it doesn't stretch too far */
+            width: 100%;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1400px; /* Keeps logo/menu from hitting edges on big screens */
+            margin: 0 auto;
+            padding: 0 5%;
+            height: 150px; /* Fixed Taller Height for Desktop */
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; /* Ensures vertical centering */
+        }
+
+        .logo { display: flex; align-items: left; height: 100%; } 
+        .logo img { 
+            height: 120px; /* Bigger Logo on Desktop */
+            width: 150px; 
+            object-fit: contain; 
+        }
+
+        .nav-menu { display: flex; gap: 40px; align-items: right; }
+        .nav-menu a { 
+            font-weight: 600; 
+            font-size: 2.2rem; /* Bigger Menu Text */
+            color: #333; 
+            position: relative; 
+        }
+        .nav-menu a:hover { color: var(--primary); }
+
+        .hamburger { display: none; font-size: 2rem; cursor: pointer; color: var(--accent); }
+
+        /* --- 3. HERO SECTION (BIGGER & BOLDER) --- */
+        .page-hero {
+            height: 450px; /* Taller Hero for Desktop */
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.85), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920');
+            background-size: cover;
+            background-position: center 20%; /* Adjusted position */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            margin-bottom: 80px;
+        }
+        
+        .hero-text { animation: fadeInUp 1s ease-out; max-width: 800px; padding: 0 20px; }
+        .hero-text h1 { 
+            font-size: 4rem; /* Massive Title for Desktop */
+            font-weight: 800; 
+            letter-spacing: -1px; 
+            margin-bottom: 10px; 
+            line-height: 1.1;
+        }
+        .hero-text p { 
+            font-size: 1.3rem; /* Larger Subtitle */
+            font-weight: 300; 
+            opacity: 0.95; 
+        }
+
+        /* --- 4. TEAM GRID (DESKTOP OPTIMIZED) --- */
+        .team-section {
+            padding: 0 5% 100px;
+            max-width: 1400px; /* Limits width so cards don't spread too far */
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Wider Cards */
+            gap: 80px; /* More space between cards */
+            justify-content: center;
+        }
+
+        /* --- 5. CARD DESIGN --- */
+        .team-card {
+            position: relative;
+            background: transparent;
+            transition: var(--transition);
+        }
+        .team-card:hover { transform: translateY(-15px); }
+
+        /* Image Area */
+        .img-wrapper {
+            width: 100%;
+            height: 500px; /* Tall, premium height for Desktop */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+        }
+
+        .img-wrapper img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.6s ease;
+        }
+        .team-card:hover .img-wrapper img { transform: scale(1.08); }
+
+        /* Floating Content Box */
+        .card-details {
+            background: white;
+            width: 85%;
+            margin: -70px auto 0; /* Creates overlap */
+            padding: 40px; /* More padding inside card */
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            border-bottom: 5px solid var(--primary);
+        }
+
+        .role-tag {
+            background: var(--primary);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .card-details h3 {
+            font-size: 2.2rem; /* Larger Name */
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .card-details p {
+            font-size: 1.1rem; /* Larger Description */
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        /* Social Icons */
+        .social-row {
+            display: flex; justify-content: center; gap: 15px;
+            padding-top: 20px; border-top: 1px solid #eee;
+        }
+        .social-row a {
+            width: 45px; height: 45px;
+            border-radius: 50%; background: white; border: 1px solid #eee;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); transition: 0.3s; font-size: 1.2rem;
+        }
+        .social-row a:hover {
+            background: var(--primary); color: white; border-color: var(--primary);
+            transform: rotate(360deg);
+        }
+
+        /* --- 6. FOOTER --- */
+        footer {
+            background: #111; color: #ccc;
+            padding: 80px 5% 40px;
+            text-align: center; font-size: 1.1rem; margin-top: auto;
+        }
+        .footer-logo { font-size: 2rem; color: white; font-weight: 800; margin-bottom: 25px; display: inline-block; }
+        .footer-logo span { color: var(--primary); }
+        .social-links { margin-bottom: 30px; }
+        .social-links a {
+            width: 50px; height: 50px; background: rgba(255,255,255,0.1);
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 50%; margin: 0 8px; color: white; font-size: 1.2rem;
+        }
+        .social-links a:hover { background: var(--primary); }
+        .copyright { border-top: 1px solid #333; padding-top: 25px; font-size: 0.95rem; }
+
+        /* --- 7. FLOATING BUTTONS & CHAT --- */
+        .float-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--whatsapp); color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 999; animation: bounce 2s infinite;
+        }
+        .float-call { right: 100px; background: var(--primary); animation: none; }
+
+        .chat-toggle {
+            position: fixed; bottom: 30px; right: 170px; width: 60px; height: 60px;
+            background: #1a1a1a; color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 999; cursor: pointer; transition: all 0.3s;
+        }
+        .chat-toggle:hover { transform: scale(1.1); }
+
+        .chat-window {
+            position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px;
+            background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 10000; display: none; flex-direction: column; overflow: hidden;
+            border: 1px solid #eee; animation: slideUp 0.3s ease-out;
+        }
+        .chat-window.active { display: flex; }
+        
+        .chat-header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+        .chat-close { cursor: pointer; font-size: 1.2rem; }
+        .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f4f6f8; display: flex; flex-direction: column; gap: 10px; }
+        .message { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 0.9rem; line-height: 1.4; }
+        .bot-msg { background: white; color: #333; border-bottom-left-radius: 2px; align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .user-msg { background: var(--primary); color: white; border-bottom-right-radius: 2px; align-self: flex-end; }
+        .chat-footer { padding: 10px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
+        .chat-send { background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-8px);} }
+
+        /* ========================================= */
+        /* MOBILE RESPONSIVENESS (< 992px)    */
+        /* ========================================= */
+        @media (max-width: 992px) {
+            .header-container { height: 80px; padding: 0 5%; }
+            .logo img { height: 60px; }
+            
+            .nav-menu {
+                position: fixed; top: 80px; left: 0; width: 100%;
+                background: white; flex-direction: column;
+                align-items: center; padding: 40px 0;
+                transform: translateY(-150%); transition: 0.4s;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+            }
+            .nav-menu.active { transform: translateY(0); }
+            .nav-menu li { margin: 10px 0; }
+            
+            .hamburger { display: block; }
+
+            .page-hero { height: 280px; margin-bottom: 50px; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { font-size: 1rem; }
+            
+            .team-section { padding: 0 20px 80px; }
+            .team-grid { grid-template-columns: 1fr; gap: 60px; max-width: 450px; }
+            
+            .img-wrapper { height: 380px; }
+            .card-details { width: 95%; margin-top: -50px; padding: 25px 20px; }
+            .card-details h3 { font-size: 1.6rem; }
+            
+            /* Buttons on Mobile */
+            .float-btn { width: 50px; height: 50px; font-size: 24px; right: 20px; bottom: 20px; }
+            .float-call { right: 80px; bottom: 20px; }
+            .chat-toggle { width: 50px; height: 50px; font-size: 20px; right: 140px; bottom: 20px; }
+            .chat-window { width: 90%; right: 5%; bottom: 90px; height: 60vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png.jpeg" alt="Freedom Security">
+            </a>
+
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="team.html" style="color:var(--primary);">Team</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="hero-text">
+            <h1>Our Leadership</h1>
+            <p>The dedicated minds ensuring your safety and security.</p>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="team-grid">
+            
+            <div class="team-card">
+                <div class="img-wrapper">
+                    <img src="GAURAV.jpeg" alt="Gaurav Thakur">
+                </div>
+                <div class="card-details">
+                    <span class="role-tag">Director</span>
+                    <h3>Gaurav Thakur</h3>
+                    <p>Founder and visionary behind Freedom And Security. Bringing years of technical expertise in surveillance systems.</p>
+                    <div class="social-row">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="img-wrapper">
+                    <img src="SARITA.jpeg" alt="Sarita Thakur">
+                </div>
+                <div class="card-details">
+                    <span class="role-tag">Co-Director</span>
+                    <h3>Sarita Thakur</h3>
+                    <p>Playing a pivotal role in operations and management, ensuring smooth service delivery across Himachal Pradesh.</p>
+                    <div class="social-row">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Freedom <span>Security</span></div>
+        <div class="social-links">
+            <a href="https://www.facebook.com/people/Gaurav-Thakur/61584912822893/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/freedom_and_security_/"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="copyright">
+            &copy; 2024 Freedom And Security. All Rights Reserved.
+        </div>
+    </footer>
+
+    <div class="chat-toggle" onclick="toggleChat()"><i class="fas fa-comments"></i></div>
+    <a href="tel:8219973402" class="float-btn float-call"><i class="fas fa-phone-alt"></i></a>
+    <a href="https://wa.me/918219973402" class="float-btn float-whatsapp"><i class="fab fa-whatsapp"></i></a>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>Freedom Assistant</span>
+            <span class="chat-close" onclick="toggleChat()">&times;</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="message bot-msg">
+                Hello! 👋 I'm your virtual assistant. Ask me about CCTV, Laptops, or Networking!
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type a message..." onkeypress="handleEnter(event)">
+            <button class="chat-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
+
+        function toggleChat() { document.getElementById('chatWindow').classList.toggle('active'); }
+        function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const chatBody = document.getElementById('chatBody');
+            const userText = input.value.trim();
+            if (userText === "") return;
+
+            const userDiv = document.createElement('div');
+            userDiv.className = 'message user-msg';
+            userDiv.innerText = userText;
+            chatBody.appendChild(userDiv);
+            
+            input.value = "";
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'message bot-msg';
+                botDiv.innerText = getBotResponse(userText);
+                chatBody.appendChild(botDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 600);
+        }
+
+        function getBotResponse(input) {
+            input = input.toLowerCase();
+            if (input.match(/hi|hello/)) return "Hello! Welcome to Freedom & Security.";
+            if (input.match(/phone|contact/)) return "Call us at +91 82199 73402.";
+            return "Please call +91 82199 73402 for assistance.";
+        }
+    </script>
+
+</body>
+</html>

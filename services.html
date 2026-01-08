@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | Freedom And Security</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. VARIABLES & RESET --- */
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004080;
+            --accent: #1a1a1a;
+            --light: #ffffff;
+            --gray-bg: #f8f9fa;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+            --whatsapp: #25D366; /* WhatsApp Brand Color */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Prevent horizontal scroll on mobile */
+        body { font-family: 'Poppins', sans-serif; background-color: var(--gray-bg); color: var(--accent); overflow-x: hidden; }
+        
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- 2. HEADER --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            height: 70px;
+        }
+         .logo { 
+    display: flex; 
+    align-items: center; 
+    height: 100%; /* Ensures it centers vertically in header */
+} /* 2. The Image Magic - This prevents size problems */
+.logo img {
+    height: 70px;       /* Sets a fixed height that fits the header */
+    width: 180px;        /* Automatically adjusts width to keep shape */
+    object-fit: contain; /* Ensures logo never gets cut off */
+}/* 3. Mobile Adjustment */
+@media (max-width: 768px) {
+    .logo img {
+        height: 70px; /* Slightly smaller on mobile to save space */
+    }
+}
+        .logo span { color: var(--accent); }
+        
+        .nav-menu { display: flex; gap: 30px; }
+        .nav-menu a { font-weight: 600; font-size: 0.95rem; position: relative; }
+        .nav-menu a:hover { color: var(--primary); }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--accent); }
+
+        /* --- 3. SERVICES SECTION --- */
+        .services-page { padding: 80px 5%; min-height: 80vh; }
+        
+        .section-header { text-align: center; margin-bottom: 60px; animation: fadeInUp 1s ease-out; }
+        .section-header h1 { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; line-height: 1.2; }
+        .section-header p { color: #666; max-width: 600px; margin: 0 auto; }
+
+        /* Dynamic Grid - Fully Responsive */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Service Card Styling */
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0; /* For animation */
+            transform: translateY(30px);
+            position: relative;
+            border-bottom: 4px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card.active { opacity: 1; transform: translateY(0); }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--primary);
+        }
+
+        /* IMAGE BOX */
+        .service-img-box {
+            width: 100%;
+            height: 220px; 
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-img-box img {
+            transform: scale(1.1); 
+        }
+
+        /* Icon Overlay */
+        .service-icon {
+            position: absolute;
+            bottom: -25px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .service-content { padding: 35px 25px 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .service-content h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--accent); }
+        .service-content p { font-size: 0.95rem; color: #666; line-height: 1.6; margin-bottom: 25px; flex-grow: 1; }
+        
+        /* --- ACTION BUTTONS STYLING --- */
+        .card-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .action-btn {
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s, background-color 0.3s;
+            flex: 1; /* Makes buttons equal width */
+            text-decoration: none;
+        }
+
+        .action-btn:active { transform: scale(0.95); }
+
+        /* Call Button Style */
+        .btn-call {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        .btn-call:hover { 
+            background-color: var(--primary); 
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* WhatsApp Button Style */
+        .btn-whatsapp {
+            background-color: var(--whatsapp);
+            color: white;
+            border: 1px solid var(--whatsapp);
+        }
+        .btn-whatsapp:hover { 
+            background-color: #1ebc57; 
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); 
+        }
+
+        /* --- 4. FOOTER --- */
+        footer { background: #111; color: #aaa; padding: 50px 5% 20px; text-align: center; margin-top: auto; }
+        .footer-logo { font-size: 1.5rem; color: white; font-weight: 800; margin-bottom: 20px; display: inline-block; }
+        .footer-logo span { color: var(--primary); }
+        .copyright { border-top: 1px solid #222; padding-top: 20px; font-size: 0.85rem; }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================= */
+        /* MOBILE RESPONSIVE MEDIA QUERIES        */
+        /* ========================================= */
+        
+        @media (max-width: 900px) {
+            .services-page { padding: 60px 5%; }
+            .section-header h1 { font-size: 2.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Navigation */
+            .hamburger { display: block; }
+            
+            .nav-menu {
+                position: fixed; 
+                top: 70px; 
+                left: 0; 
+                width: 100%;
+                background: white; 
+                flex-direction: column;
+                align-items: center; 
+                padding: 30px 0;
+                transform: translateY(-150%); 
+                transition: 0.4s ease-in-out;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                border-top: 1px solid #eee;
+            }
+            
+            .nav-menu.active { transform: translateY(0); }
+            .nav-menu li { width: 100%; text-align: center; margin: 10px 0; }
+            .nav-menu a { font-size: 1.1rem; display: block; padding: 10px; }
+
+            /* Mobile Content */
+            .services-page { padding: 40px 5%; }
+            .section-header { margin-bottom: 40px; }
+            .section-header h1 { font-size: 2rem; }
+            .section-header p { font-size: 0.9rem; padding: 0 10px; }
+        }
+
+        @media (max-width: 480px) {
+            /* Small Phones */
+            .section-header h1 { font-size: 1.75rem; }
+            .logo { font-size: 1.2rem; }
+            .service-img-box { height: 180px; }
+            .service-content { padding: 30px 20px 20px; }
+            .services-grid { gap: 20px; }
+            
+            /* Button adjustments for small screens */
+            .action-btn { font-size: 0.85rem; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+    <a href="index.html" class="logo">
+        <img src="logo.png.jpeg" alt="Freedom Security">
+    </a>
+
+    <nav>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+</header>
+
+    <section class="services-page">
+        <div class="section-header">
+            <h1>Our Premium Services</h1>
+            <p>Comprehensive security and technology solutions tailored to your specific needs.</p>
+        </div>
+
+        <div class="services-grid" id="serviceContainer">
+            </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Freedom <span>Security</span></div>
+        <div class="copyright">
+            &copy; 2024 Freedom And Security. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // ==========================================
+        //  1. JSON DATA
+        // ==========================================
+        const servicesData = [
+            // --- CAMERAS & SECURITY ---
+            {
+                title: "IP Camera Setup",
+                description: "Installation of digital network cameras. We focus on PoE cabling and NVR configuration for clear, digital footage.",
+                image: " IPCAM.jpeg",
+                icon: "fa-network-wired"
+            },
+            {
+                title: "WiFi Camera Solutions",
+                description: "Wireless security devices for finished homes. No drilling or messy cables, just power and WiFi connectivity.",
+                image: "wc.jpeg",
+                icon: "fa-wifi"
+            },
+            {
+                title: "PTZ Camera 360°",
+                description: "Motorized Pan-Tilt-Zoom cameras for large areas. We install controllers to rotate and zoom the lens remotely.",
+                image: "ptz.jpeg",
+                icon: "fa-arrows-alt"
+            },
+            {
+                title: "HD Camera Installation",
+                description: "Analog HD (AHD) systems using coaxial cables. Cost-effective upgrades for existing BNC wiring infrastructure.",
+                image: " hd cam.jpeg",
+                icon: "fa-eye"
+            },
+            {
+                title: "Video Door Phone",
+                description: "Screen and outdoor bell unit installation. Includes electronic lock integration for remote door opening.",
+                image: "  vp.jpeg",
+                icon: "fa-bell"
+            },
+
+            // --- COMPUTING & PRINTING ---
+            {
+                title: "Laptop Repairing",
+                description: "Hardware diagnostics: Screen replacement, RAM upgrades, SSD installation, and motherboard chip-level repair.",
+                image: "laptopre.jpeg",
+                icon: "fa-laptop"
+            },
+            {
+                title: "Printer Repair",
+                description: "Mechanical repair for LaserJet and InkJet. Fixing paper rollers, logic boards, and print head cleaning.",
+                image: " prep.jpeg",
+                icon: "fa-print"
+            },
+            {
+                title: "Toner Refilling",
+                description: "Cartridge servicing. We refill toner powder, replace drum units, and change magnet rollers for crisp prints.",
+                image: "  tofe.jpeg",
+                icon: "fa-fill-drip"
+            },
+
+            // --- POWER & INFRASTRUCTURE ---
+            {
+                title: "UPS & Inverter",
+                description: "Battery and inverter installation. We service tubular batteries and online UPS systems for power backup.",
+                image: "ups.jpeg",
+                icon: "fa-battery-full"
+            },
+            {
+                title: "Networking Solutions",
+                description: "Rack installation, Switch configuration, and Cat6 cabling. We set up routers and organize server racks.",
+                image: "  ns.jpeg",
+                icon: "fa-server"
+            },
+
+            // --- EDUCATION & OFFICE ---
+            {
+                title: "Smart Class Setup",
+                description: "Mounting Interactive Flat Panels (IFP) and Ops computers. Complete digital classroom hardware setup.",
+                image: " smart.jpeg",
+                icon: "fa-chalkboard-teacher"
+            },
+            {
+                title: "Projector Installation",
+                description: "Ceiling mounts for projectors. We align lenses, install screens, and run HDMI/VGA cabling through ducts.",
+                image: " pro.jpeg",
+                icon: "fa-film"
+            },
+            {
+                title: "Intercom Installation",
+                description: "EPABX Box and phone line wiring. We connect extension phones for office-wide communication.",
+                image: "ic.jpeg",
+                icon: "fa-phone-alt"
+            },
+            {
+                title: "Maintenance (AMC)",
+                description: "Annual support for all equipment. Regular checkups of cameras, cleaning of DVRs, and cable testing.",
+                image: "prep.jpeg",
+                icon: "fa-tools"
+            }
+        ];
+
+        // ==========================================
+        //  2. LOGIC TO RENDER CARDS (UPDATED)
+        // ==========================================
+        const container = document.getElementById('serviceContainer');
+        const phoneNumber = "8219973402";
+
+        servicesData.forEach(service => {
+            const cardHTML = `
+                <div class="service-card">
+                    <div class="service-img-box">
+                        <img src="${service.image}" alt="${service.title}">
+                        <div class="service-icon">
+                            <i class="fas ${service.icon}"></i>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3>${service.title}</h3>
+                        <p>${service.description}</p>
+                        
+                        <div class="card-actions">
+                            <a href="tel:+91${phoneNumber}" class="action-btn btn-call">
+                                <i class="fas fa-phone-alt"></i> Call
+                            </a>
+                            <a href="https://wa.me/91${phoneNumber}?text=I%20am%20interested%20in%20${encodeURIComponent(service.title)}" target="_blank" class="action-btn btn-whatsapp">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            `;
+            container.innerHTML += cardHTML;
+        });
+
+        // ==========================================
+        //  3. ANIMATION & MENU LOGIC
+        // ==========================================
+        
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.service-card');
+            for(var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                
+                if(window.innerWidth < 768) { revealpoint = 50; }
+
+                if(revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        reveal();
+    </script>
+
+</body>
+</html>
